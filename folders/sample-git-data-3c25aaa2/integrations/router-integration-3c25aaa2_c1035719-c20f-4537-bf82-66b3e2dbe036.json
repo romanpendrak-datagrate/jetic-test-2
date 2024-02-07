@@ -1,0 +1,267 @@
+{
+  "revision" : 1,
+  "compression" : false,
+  "dataAnalyzer" : true,
+  "replicas" : 1,
+  "openApiUuid" : null,
+  "currentProfileUuid" : null,
+  "parameterGroupUuids" : [ ],
+  "repoResourceUuids" : [ ],
+  "routeDefinitions" : [ {
+    "id" : null,
+    "camelRouteId" : "router-integration",
+    "enabled" : true,
+    "routeId" : 1,
+    "route" : [ {
+      "name" : "timer",
+      "nodeId" : "timer: once per second",
+      "description" : "once per second",
+      "properties" : {
+        "daemon" : true,
+        "delay" : "1000",
+        "fixedRate" : false,
+        "period" : "1000",
+        "repeatCount" : "0",
+        "setScheduleTime" : false,
+        "time" : "2021-12-31 00:00:00",
+        "timerName" : "timer"
+      },
+      "_type" : "timer",
+      "isNotActive" : false
+    }, {
+      "name" : "setBody",
+      "nodeId" : "setBody: add exchangeId to body",
+      "description" : "add exchangeId to body",
+      "properties" : {
+        "expression" : "${exchangeId}",
+        "language" : "Simple"
+      },
+      "_type" : "setBody",
+      "isNotActive" : false
+    }, {
+      "name" : "multicast",
+      "nodeId" : "multicast: 00",
+      "description" : "multicast: 00",
+      "properties" : {
+        "uris" : [ {
+          "uri" : "seda://route-3"
+        } ]
+      },
+      "_type" : "multicast",
+      "branches" : [ ],
+      "isNotActive" : false
+    }, {
+      "name" : "direct",
+      "nodeId" : "direct: to route-2",
+      "description" : "to route-2",
+      "properties" : {
+        "endpointName" : "route-2"
+      },
+      "_type" : "direct",
+      "isNotActive" : false
+    } ]
+  }, {
+    "id" : null,
+    "camelRouteId" : "route-2",
+    "enabled" : true,
+    "routeId" : 2,
+    "route" : [ {
+      "name" : "direct",
+      "nodeId" : "direct: from route-2",
+      "description" : "from route-2",
+      "properties" : {
+        "endpointName" : "route-2"
+      },
+      "_type" : "direct",
+      "isNotActive" : false
+    }, {
+      "name" : "messageRouter",
+      "nodeId" : "messageRouter: outer message router",
+      "description" : "outer message router",
+      "properties" : { },
+      "_type" : "messageRouter",
+      "branches" : [ {
+        "type" : "when",
+        "label" : "when 0",
+        "route" : [ {
+          "name" : "setBody",
+          "nodeId" : "setBody: update body",
+          "description" : "update body",
+          "properties" : {
+            "expression" : "${body} ends with \"0\"",
+            "language" : "Simple"
+          },
+          "_type" : "setBody",
+          "isNotActive" : false
+        } ],
+        "properties" : {
+          "condition" : "${body} ends with \"0\"",
+          "language" : "Simple"
+        }
+      }, {
+        "type" : "when",
+        "label" : "when 2",
+        "route" : [ {
+          "name" : "setBody",
+          "nodeId" : "setBody: update body-01",
+          "description" : "update body",
+          "properties" : {
+            "expression" : "${body} ends with \"2\"",
+            "language" : "Simple"
+          },
+          "_type" : "setBody",
+          "isNotActive" : false
+        } ],
+        "properties" : {
+          "condition" : "simple('${body} ends with \"2\"')",
+          "language" : "GroovyDsl"
+        }
+      }, {
+        "type" : "otherwise",
+        "label" : "otherwise",
+        "route" : [ {
+          "name" : "messageRouter",
+          "nodeId" : "messageRouter: inner message router",
+          "description" : "inner message router",
+          "properties" : { },
+          "_type" : "messageRouter",
+          "branches" : [ {
+            "type" : "when",
+            "label" : "when 4",
+            "route" : [ {
+              "name" : "setBody",
+              "nodeId" : "setBody: update body-02",
+              "description" : "update body",
+              "properties" : {
+                "expression" : "${body} ends with \"4\"",
+                "language" : "Simple"
+              },
+              "_type" : "setBody",
+              "isNotActive" : false
+            } ],
+            "properties" : {
+              "condition" : "${body} ends with \"4\"",
+              "language" : "Simple"
+            }
+          }, {
+            "type" : "otherwise",
+            "label" : "otherwise",
+            "route" : [ {
+              "name" : "throwException",
+              "nodeId" : "throwException: unsupported operation",
+              "description" : "unsupported operation",
+              "properties" : {
+                "exception" : "new UnsupportedOperationException(\"body does not end with 0, 2, or 4\")"
+              },
+              "_type" : "throwException",
+              "isNotActive" : false
+            } ],
+            "properties" : { }
+          } ],
+          "isNotActive" : false
+        } ],
+        "properties" : { }
+      } ],
+      "isNotActive" : false
+    }, {
+      "name" : "log",
+      "nodeId" : "log: EIP log route-2",
+      "description" : "EIP log route-2",
+      "properties" : {
+        "level" : "INFO",
+        "logType" : "EIP",
+        "loggerName" : "log",
+        "message" : "body: ${body}"
+      },
+      "_type" : "log",
+      "isNotActive" : false
+    } ]
+  }, {
+    "id" : null,
+    "camelRouteId" : "route-3",
+    "enabled" : true,
+    "routeId" : 3,
+    "route" : [ {
+      "name" : "messagingEndpoint",
+      "nodeId" : "messagingEndpoint: from route-3 asynchronously",
+      "description" : "from route-3 asynchronously",
+      "properties" : {
+        "uri" : "seda://route-3"
+      },
+      "_type" : "messagingEndpoint",
+      "isNotActive" : false
+    }, {
+      "name" : "setBody",
+      "nodeId" : "setBody: add camelId to body",
+      "description" : "add camelId to body",
+      "properties" : {
+        "expression" : "${camelId}",
+        "language" : "Simple"
+      },
+      "_type" : "setBody",
+      "isNotActive" : false
+    }, {
+      "name" : "log",
+      "nodeId" : "log: EIP log route-3",
+      "description" : "EIP log route-3",
+      "properties" : {
+        "level" : "INFO",
+        "logType" : "EIP",
+        "loggerName" : "log",
+        "message" : "${body} from route-3"
+      },
+      "_type" : "log",
+      "isNotActive" : false
+    } ]
+  }, {
+    "id" : null,
+    "camelRouteId" : "route-4",
+    "enabled" : true,
+    "routeId" : 4,
+    "route" : [ {
+      "name" : "onException",
+      "nodeId" : "onException: handle all exceptions",
+      "description" : "handle all exceptions",
+      "properties" : {
+        "exceptionBehavior" : "Handle the exceptions",
+        "exceptionList" : [ {
+          "exception" : "Exception"
+        } ],
+        "maximumRedeliveries" : "0",
+        "redeliveryDelay" : "0",
+        "setRedeliveryDelay" : true,
+        "setRedeliveryTriesCount" : true,
+        "useOriginalMessage" : true
+      },
+      "_type" : "onException",
+      "branches" : [ {
+        "type" : "onException",
+        "label" : "onException",
+        "route" : [ {
+          "name" : "log",
+          "nodeId" : "log: 00",
+          "description" : "log: 00",
+          "properties" : {
+            "level" : "ERROR",
+            "logType" : "Component",
+            "loggerName" : "log",
+            "showAll" : false,
+            "showCaughtException" : true
+          },
+          "_type" : "log",
+          "isNotActive" : false
+        } ],
+        "properties" : { }
+      } ],
+      "isNotActive" : false
+    } ]
+  } ],
+  "traits" : [ ],
+  "id" : "c1035719-c20f-4537-bf82-66b3e2dbe036",
+  "name" : "router-integration-3c25aaa2",
+  "description" : "Router integration with the message router example",
+  "createdAt" : "2024-02-07T15:15:52.359942662",
+  "updatedAt" : "2024-02-07T15:15:52.359943804",
+  "createdBy" : "832157ef-48f8-44ee-875a-5ed38eda773d",
+  "updatedBy" : "832157ef-48f8-44ee-875a-5ed38eda773d"
+}

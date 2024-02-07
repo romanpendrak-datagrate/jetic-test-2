@@ -1,0 +1,134 @@
+{
+  "revision" : 1,
+  "compression" : false,
+  "dataAnalyzer" : true,
+  "replicas" : 1,
+  "openApiUuid" : null,
+  "currentProfileUuid" : null,
+  "parameterGroupUuids" : [ ],
+  "repoResourceUuids" : [ ],
+  "routeDefinitions" : [ {
+    "id" : null,
+    "camelRouteId" : "simple-integration",
+    "enabled" : true,
+    "routeId" : 1,
+    "route" : [ {
+      "name" : "timer",
+      "nodeId" : "timer: once per second",
+      "description" : "once per second",
+      "properties" : {
+        "daemon" : true,
+        "delay" : "1000",
+        "fixedRate" : false,
+        "period" : "1000",
+        "repeatCount" : "0",
+        "setScheduleTime" : false,
+        "time" : "2021-12-31 00:00:00",
+        "timerName" : "timer"
+      },
+      "_type" : "timer",
+      "isNotActive" : false
+    }, {
+      "name" : "setBody",
+      "nodeId" : "setBody: add exchangeId to body",
+      "description" : "add exchangeId to body",
+      "properties" : {
+        "expression" : "test body from simple: ${exchangeId}",
+        "language" : "Simple"
+      },
+      "_type" : "setBody",
+      "isNotActive" : false
+    }, {
+      "name" : "messagingEndpoint",
+      "nodeId" : "messagingEndpoint: to route-2",
+      "description" : "to route-2",
+      "properties" : {
+        "uri" : "direct://route-2"
+      },
+      "_type" : "messagingEndpoint",
+      "isNotActive" : false
+    } ]
+  }, {
+    "id" : null,
+    "camelRouteId" : "route-2",
+    "enabled" : true,
+    "routeId" : 2,
+    "route" : [ {
+      "name" : "direct",
+      "nodeId" : "direct: from route-2",
+      "description" : "from route-2",
+      "properties" : {
+        "endpointName" : "route-2"
+      },
+      "_type" : "direct",
+      "isNotActive" : false
+    }, {
+      "name" : "setHeaders",
+      "nodeId" : "setHeaders: set id=${camelId}",
+      "description" : "set id=${camelId}",
+      "properties" : {
+        "headerList" : [ {
+          "headerName" : "id",
+          "headerValue" : "${camelId}",
+          "language" : "Simple"
+        } ]
+      },
+      "_type" : "setHeaders",
+      "isNotActive" : false
+    }, {
+      "name" : "dslProcessor",
+      "nodeId" : "dslProcessor: to route-3",
+      "description" : "to route-3",
+      "properties" : {
+        "dsl" : ".to('direct://route-3')"
+      },
+      "_type" : "dslProcessor",
+      "isNotActive" : false
+    } ]
+  }, {
+    "id" : null,
+    "camelRouteId" : "route-3",
+    "enabled" : true,
+    "routeId" : 3,
+    "route" : [ {
+      "name" : "dslProcessor",
+      "nodeId" : "dslProcessor: from route-3",
+      "description" : "from route-3",
+      "properties" : {
+        "dsl" : "from('direct://route-3')"
+      },
+      "_type" : "dslProcessor",
+      "isNotActive" : false
+    }, {
+      "name" : "process",
+      "nodeId" : "process: add date to headers",
+      "description" : "add date to headers",
+      "properties" : {
+        "code" : "exchange.getIn().setHeader(\"date\", new Date())",
+        "import" : ""
+      },
+      "_type" : "process",
+      "isNotActive" : false
+    }, {
+      "name" : "log",
+      "nodeId" : "log: EIP log",
+      "description" : "EIP log",
+      "properties" : {
+        "level" : "INFO",
+        "logType" : "EIP",
+        "loggerName" : "log",
+        "message" : "headers: ${headers}; body: ${body}"
+      },
+      "_type" : "log",
+      "isNotActive" : false
+    } ]
+  } ],
+  "traits" : [ ],
+  "id" : "df64f1c8-a37a-4e25-97cf-5cb1b42333ad",
+  "name" : "simple-integration-3c25aaa2",
+  "description" : "Simple integration with the timer-body-log example",
+  "createdAt" : "2024-02-07T15:15:52.190908876",
+  "updatedAt" : "2024-02-07T15:15:52.190909917",
+  "createdBy" : "832157ef-48f8-44ee-875a-5ed38eda773d",
+  "updatedBy" : "832157ef-48f8-44ee-875a-5ed38eda773d"
+}

@@ -1,0 +1,66 @@
+{
+  "revision" : 1,
+  "compression" : false,
+  "dataAnalyzer" : true,
+  "replicas" : 1,
+  "openApiUuid" : "93319668-fb68-44f1-9b10-4e4482764ffe",
+  "currentProfileUuid" : null,
+  "parameterGroupUuids" : [ ],
+  "repoResourceUuids" : [ ],
+  "routeDefinitions" : [ {
+    "id" : null,
+    "camelRouteId" : "open-api-integration",
+    "enabled" : true,
+    "routeId" : 1,
+    "route" : [ {
+      "name" : "getRequest",
+      "nodeId" : "restApi: GET request",
+      "description" : "GET request",
+      "properties" : {
+        "consumes" : "application/json",
+        "endpoint" : "/api/v1/test",
+        "operationName" : "default",
+        "produces" : "application/json",
+        "requestmethod" : "GET"
+      },
+      "_type" : "restApi",
+      "isNotActive" : false
+    }, {
+      "name" : "setBody",
+      "nodeId" : "setBody: add hello json to body",
+      "description" : "add hello json to body",
+      "properties" : {
+        "expression" : "{\"message\": \"hello from open-api-3c25aaa2\", \"exchangeId\": \"${exchangeId}\"}",
+        "language" : "Simple"
+      },
+      "_type" : "setBody",
+      "isNotActive" : false
+    }, {
+      "name" : "log",
+      "nodeId" : "log: EIP log",
+      "description" : "EIP log",
+      "properties" : {
+        "level" : "INFO",
+        "logType" : "EIP",
+        "loggerName" : "log",
+        "message" : "headers: ${headers}; body: ${body}"
+      },
+      "_type" : "log",
+      "isNotActive" : false
+    } ]
+  } ],
+  "traits" : [ {
+    "name" : "ingress",
+    "configuration" : {
+      "enabled" : true,
+      "host" : "3c25aaa2.dev.datagrate.co"
+    }
+  } ],
+  "id" : "9d99d225-9d6e-49f4-8b19-8d9273a9b8a8",
+  "name" : "open-api-integration-3c25aaa2",
+  "description" : "Simple integration with an open-api example",
+  "createdAt" : "2024-02-07T15:15:52.803334936",
+  "updatedAt" : "2024-02-07T15:15:52.805278162",
+  "createdBy" : "832157ef-48f8-44ee-875a-5ed38eda773d",
+  "updatedBy" : "832157ef-48f8-44ee-875a-5ed38eda773d"
+}

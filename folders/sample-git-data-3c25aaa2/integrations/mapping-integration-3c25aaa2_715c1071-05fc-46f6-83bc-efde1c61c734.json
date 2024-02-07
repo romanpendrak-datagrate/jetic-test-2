@@ -1,0 +1,97 @@
+{
+  "revision" : 2,
+  "compression" : false,
+  "dataAnalyzer" : true,
+  "replicas" : 1,
+  "openApiUuid" : null,
+  "currentProfileUuid" : null,
+  "parameterGroupUuids" : [ ],
+  "repoResourceUuids" : [ "21a8ac05-3454-4b86-b130-a694edfee619" ],
+  "routeDefinitions" : [ {
+    "id" : null,
+    "camelRouteId" : "mapping-integration",
+    "enabled" : true,
+    "routeId" : 1,
+    "route" : [ {
+      "name" : "timer",
+      "nodeId" : "timer: once per second",
+      "description" : "once per second",
+      "properties" : {
+        "daemon" : true,
+        "delay" : "1000",
+        "fixedRate" : false,
+        "period" : "1000",
+        "repeatCount" : "0",
+        "setScheduleTime" : false,
+        "time" : "2021-12-31 00:00:00",
+        "timerName" : "timer"
+      },
+      "_type" : "timer",
+      "isNotActive" : false
+    }, {
+      "name" : "setProperties",
+      "nodeId" : "setProperties: set 2 input json bodies",
+      "description" : "set 2 input json bodies",
+      "properties" : {
+        "propertyList" : [ {
+          "language" : "Constant",
+          "propertyName" : "in-157a8c87-6002-48a7-a20d-de95588e2bd9",
+          "propertyValue" : "{\"apiVersion\":\"camel.apache.org/v1\",\"kind\":\"Integration\"}"
+        }, {
+          "language" : "Constant",
+          "propertyName" : "test-315aac82-fc63-441f-94e7-ae674d4fb382",
+          "propertyValue" : "{\"test\":\"was successfully mapped!\"}"
+        } ]
+      },
+      "_type" : "setProperties",
+      "isNotActive" : false
+    }, {
+      "name" : "log",
+      "nodeId" : "log: 00",
+      "description" : "log: 00",
+      "properties" : {
+        "level" : "INFO",
+        "logType" : "EIP",
+        "loggerName" : "log",
+        "message" : "input json 1: ${exchangeProperty.in-157a8c87-6002-48a7-a20d-de95588e2bd9}; input json 2: ${exchangeProperty.test-315aac82-fc63-441f-94e7-ae674d4fb382}"
+      },
+      "_type" : "log",
+      "isNotActive" : false
+    }, {
+      "name" : "atlasmap",
+      "nodeId" : "atlasmap: map jsons to xml",
+      "description" : "map jsons to xml",
+      "properties" : {
+        "allowContextMapAll" : false,
+        "contentCache" : false,
+        "lazyStartProducer" : false,
+        "resourceUri" : "cloud-mapping.adm",
+        "sourceMapName" : "",
+        "targetMapMode" : "MAP",
+        "targetMapName" : ""
+      },
+      "_type" : "atlasmap",
+      "isNotActive" : false
+    }, {
+      "name" : "log",
+      "nodeId" : "log: 01",
+      "description" : "log: 01",
+      "properties" : {
+        "level" : "INFO",
+        "logType" : "EIP",
+        "loggerName" : "log",
+        "message" : "output xml: ${body}"
+      },
+      "_type" : "log",
+      "isNotActive" : false
+    } ]
+  } ],
+  "traits" : [ ],
+  "id" : "715c1071-05fc-46f6-83bc-efde1c61c734",
+  "name" : "mapping-integration-3c25aaa2",
+  "description" : "Mapping integration from json to xml",
+  "createdAt" : "2024-02-07T15:15:52.830028404",
+  "updatedAt" : "2024-02-07T15:15:53.433035158",
+  "createdBy" : "832157ef-48f8-44ee-875a-5ed38eda773d",
+  "updatedBy" : "832157ef-48f8-44ee-875a-5ed38eda773d"
+}

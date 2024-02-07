@@ -1,0 +1,207 @@
+{
+  "atlasJson" : {
+    "jsonType" : "io.atlasmap.v2.AtlasMapping",
+    "dataSource" : [ {
+      "jsonType" : "io.atlasmap.json.v2.JsonDataSource",
+      "id" : "in-157a8c87-6002-48a7-a20d-de95588e2bd9",
+      "name" : "in.json",
+      "description" : "Source document in.json type: JSON",
+      "uri" : "atlas:json:in-157a8c87-6002-48a7-a20d-de95588e2bd9",
+      "dataSourceType" : "SOURCE",
+      "template" : null
+    }, {
+      "jsonType" : "io.atlasmap.json.v2.JsonDataSource",
+      "id" : "test-315aac82-fc63-441f-94e7-ae674d4fb382",
+      "name" : "test.json",
+      "description" : "Source document test.json type: JSON",
+      "uri" : "atlas:json:test-315aac82-fc63-441f-94e7-ae674d4fb382",
+      "dataSourceType" : "SOURCE",
+      "template" : null
+    }, {
+      "jsonType" : "io.atlasmap.xml.v2.XmlDataSource",
+      "id" : "out-6e1b0960-e5b4-4df7-979a-b0eac49c66a4",
+      "name" : "out.xml",
+      "description" : "Target document out.xml type: XML",
+      "uri" : "atlas:xml:out-6e1b0960-e5b4-4df7-979a-b0eac49c66a4",
+      "dataSourceType" : "TARGET",
+      "xmlNamespaces" : {
+        "xmlNamespace" : [ ]
+      },
+      "template" : null
+    } ],
+    "mappings" : {
+      "mapping" : [ {
+        "jsonType" : "io.atlasmap.v2.Mapping",
+        "alias" : null,
+        "description" : null,
+        "mappingType" : null,
+        "expression" : null,
+        "inputFieldGroup" : null,
+        "inputField" : [ {
+          "jsonType" : "io.atlasmap.json.v2.JsonField",
+          "actions" : [ {
+            "@type" : "Uppercase"
+          } ],
+          "value" : null,
+          "arrayDimensions" : null,
+          "arraySize" : null,
+          "collectionType" : null,
+          "docId" : "in-157a8c87-6002-48a7-a20d-de95588e2bd9",
+          "index" : null,
+          "path" : "/apiVersion",
+          "required" : null,
+          "status" : null,
+          "fieldType" : "STRING",
+          "format" : null,
+          "name" : "apiVersion",
+          "primitive" : null,
+          "typeName" : null,
+          "userCreated" : false
+        } ],
+        "outputField" : [ {
+          "jsonType" : "io.atlasmap.xml.v2.XmlField",
+          "actions" : null,
+          "value" : null,
+          "arrayDimensions" : null,
+          "arraySize" : null,
+          "collectionType" : null,
+          "docId" : "out-6e1b0960-e5b4-4df7-979a-b0eac49c66a4",
+          "index" : null,
+          "path" : "/data/apiVersion",
+          "required" : null,
+          "status" : null,
+          "fieldType" : "STRING",
+          "format" : null,
+          "name" : "apiVersion",
+          "annotations" : null,
+          "restrictions" : null,
+          "nodeType" : null,
+          "primitive" : null,
+          "typeName" : null,
+          "userCreated" : false,
+          "attribute" : false
+        } ],
+        "id" : "mapping.964262",
+        "delimiter" : null,
+        "delimiterString" : null,
+        "lookupTableName" : null,
+        "strategy" : null,
+        "strategyClassName" : null
+      }, {
+        "jsonType" : "io.atlasmap.v2.Mapping",
+        "alias" : null,
+        "description" : null,
+        "mappingType" : null,
+        "expression" : null,
+        "inputFieldGroup" : {
+          "jsonType" : "io.atlasmap.v2.FieldGroup",
+          "actions" : [ {
+            "delimiter" : " ",
+            "delimitingEmptyValues" : true,
+            "@type" : "Concatenate"
+          } ],
+          "value" : null,
+          "arrayDimensions" : null,
+          "arraySize" : null,
+          "collectionType" : null,
+          "docId" : null,
+          "index" : null,
+          "path" : null,
+          "required" : null,
+          "status" : null,
+          "fieldType" : null,
+          "format" : null,
+          "name" : null,
+          "field" : [ {
+            "jsonType" : "io.atlasmap.json.v2.JsonField",
+            "actions" : [ {
+              "@type" : "Lowercase"
+            } ],
+            "value" : null,
+            "arrayDimensions" : null,
+            "arraySize" : null,
+            "collectionType" : null,
+            "docId" : "in-157a8c87-6002-48a7-a20d-de95588e2bd9",
+            "index" : 0,
+            "path" : "/kind",
+            "required" : null,
+            "status" : null,
+            "fieldType" : "STRING",
+            "format" : null,
+            "name" : "kind",
+            "primitive" : null,
+            "typeName" : null,
+            "userCreated" : false
+          }, {
+            "jsonType" : "io.atlasmap.json.v2.JsonField",
+            "actions" : null,
+            "value" : null,
+            "arrayDimensions" : null,
+            "arraySize" : null,
+            "collectionType" : null,
+            "docId" : "test-315aac82-fc63-441f-94e7-ae674d4fb382",
+            "index" : 1,
+            "path" : "/test",
+            "required" : null,
+            "status" : null,
+            "fieldType" : "STRING",
+            "format" : null,
+            "name" : "test",
+            "primitive" : null,
+            "typeName" : null,
+            "userCreated" : false
+          } ]
+        },
+        "inputField" : [ ],
+        "outputField" : [ {
+          "jsonType" : "io.atlasmap.xml.v2.XmlField",
+          "actions" : null,
+          "value" : null,
+          "arrayDimensions" : null,
+          "arraySize" : null,
+          "collectionType" : null,
+          "docId" : "out-6e1b0960-e5b4-4df7-979a-b0eac49c66a4",
+          "index" : null,
+          "path" : "/data/kind",
+          "required" : null,
+          "status" : null,
+          "fieldType" : "STRING",
+          "format" : null,
+          "name" : "kind",
+          "annotations" : null,
+          "restrictions" : null,
+          "nodeType" : null,
+          "primitive" : null,
+          "typeName" : null,
+          "userCreated" : false,
+          "attribute" : false
+        } ],
+        "id" : "mapping.631323",
+        "delimiter" : null,
+        "delimiterString" : null,
+        "lookupTableName" : null,
+        "strategy" : null,
+        "strategyClassName" : null
+      } ]
+    },
+    "lookupTables" : {
+      "lookupTable" : [ ]
+    },
+    "constants" : {
+      "constant" : [ ]
+    },
+    "properties" : {
+      "property" : [ ]
+    },
+    "name" : "UI.0"
+  },
+  "atlasGzBase64" : "H4sIAAAAAAAAA81XbU/bSBD+zq9w9zNOE8dxEiuXHqUUpWrTE4SqUs2Hjb2hLn5ZedccCPm/34y9fqMuOBx3KhJCu/vMeObZeWYHTdPuDzRNI+yWx4n8RDn3oytBbNwsjvCH3NAgZcTWyL1DjmRAhUI6xIadHyKONnecwcohfjygiAgpH9wYgzb60CEelfQ8ThMX4d8es8YDdPEB/r5rWIET3yvQkT6aTOnMnU11azg0dHNGpzo1hp7usflkMpsxY+vNc5OIhuoTUe65CIYJN/G59HENZ8UnNC9205BFUlNYTUJ8tvbh/PM6N0sTP4fnodqIsPcJpaagyvv888XZ8YlDssN/x4hkQurj0YRSd2boO9ca66Y52ulzk0E0zJqanrnbjmdGmxM0689Khe7By34BPZuZ2zBAYr6GQTcvcSp1i422w7k11Nlka+qmt5vq8+mc6tsho645dy2Lmm1awAo9d5KyockVkzUpCqso+frpYwcjcG7vFUkHH5ujs9OTTX4K7tYQquDUZaKQYnML9XWZZZeADJWwC1BYifdR/QGfTeH6EU/le58F3j7CVQZgT13kTijjP2VpecE5S1wqYJXHCoyu9pc3p/J7bvSacv8LS4SvinmHAdTVtDlbrU/bt/zAIBUsOU4YlQyj2NFAsDwuuLi+BNTVWKdfp7VXBdR5YS38F8nh1UiZ+NtUslbCSjqqWgZzyzQs4ykh/rJoTpM45U+/F03sT0XjscAPfcmS3FJTusz34IMnIZd3X/ClQrxMUkytrrPjOHIh74jKstJ2L1/MH+O/X6CY/chjt2A1bBXANWz3vPUK2lXMvZ+YruLdr5+XiYxaiaCPnolU0E5VZj+1pd9GqC90WX3FaY1HY2OMRYecBHF8nfIN3Qblu9DYKZ4FQLlQwJJGUkHKZXXOkxg6s/RLH2p9VwGqDC5WgyF8OyP5wJgdNkdKJikMjt8OylmyGioRgx5wrFRzFjlsHrYfP4ThoNHG+F5h3ktbD0wjwVku49L9an2+OVofn/wK9xdNIF5oPzAga/eE2IRkbago4kVn2H9IeQiwR/OvJqrnMtBblr8vB2qAeooBmKy6COir1f81/1yuNQHwe1lilTzeBrF7jSNrSyMPKNLa/4FFjmy/6za8hC5EFQwozH3f2SBOrl7fjLCn5NiiwSBqFUl2ldBiiHWijDS+0rifHt8vGjP69IUmUhcmULFLg+BOw5bEvFfP9b94g1P0TZHbHw4ZYWvRWOTGHjQ62LjYvNdnDnmzdKIFlscSA1rUfCw7qFg0BqcCj5wsG3Qs8o6NPvP+vWxFjheH6+zgH08cfuoxDwAA",
+  "atlasZipBase64" : "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",
+  "id" : "1589718438",
+  "name" : "test-mapping-3c25aaa2",
+  "description" : "Test mapping for development purposes",
+  "createdAt" : "2024-02-07T15:15:52.927195692",
+  "updatedAt" : "2024-02-07T15:15:52.927196596",
+  "createdBy" : "832157ef-48f8-44ee-875a-5ed38eda773d",
+  "updatedBy" : "832157ef-48f8-44ee-875a-5ed38eda773d"
+}
