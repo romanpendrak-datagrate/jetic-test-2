@@ -4,11 +4,11 @@
   "dataAnalyzer" : true,
   "replicas" : 1,
   "openApiUuid" : null,
-  "currentProfileUuid" : null,
+  "currentProfileUuid" : "5524df63-d401-4f9e-8bb7-7772ecfa7a29",
   "parameterGroupUuids" : [ ],
   "repoResourceUuids" : [ ],
   "routeDefinitions" : [ {
-    "id" : null,
+    "id" : 1,
     "camelRouteId" : "simple-integration",
     "enabled" : true,
     "routeId" : 1,
@@ -17,14 +17,20 @@
       "nodeId" : "timer: once per second",
       "description" : "once per second",
       "properties" : {
+        "_type" : "timer",
+        "active" : true,
+        "advancedParameters" : [ ],
+        "camelGroup" : "scheduled trigger",
         "daemon" : true,
         "delay" : "1000",
         "fixedRate" : false,
+        "name" : "timer",
         "period" : "1000",
         "repeatCount" : "0",
         "setScheduleTime" : false,
         "time" : "2021-12-31 00:00:00",
-        "timerName" : "timer"
+        "timerName" : "timer",
+        "url" : ""
       },
       "_type" : "timer",
       "isNotActive" : false
@@ -33,8 +39,16 @@
       "nodeId" : "setBody: add exchangeId to body",
       "description" : "add exchangeId to body",
       "properties" : {
+        "_type" : "setBody",
+        "active" : true,
+        "addNamespaces" : false,
+        "camelGroup" : "core feature",
         "expression" : "test body from simple: ${exchangeId}",
-        "language" : "Simple"
+        "language" : "Simple",
+        "name" : "setBody",
+        "namespaces" : [ ],
+        "suppressExceptions" : false,
+        "url" : ""
       },
       "_type" : "setBody",
       "isNotActive" : false
@@ -43,13 +57,19 @@
       "nodeId" : "messagingEndpoint: to route-2",
       "description" : "to route-2",
       "properties" : {
-        "uri" : "direct://route-2"
+        "_type" : "messagingEndpoint",
+        "active" : true,
+        "camelGroup" : "core feature",
+        "name" : "messagingEndpoint",
+        "toDynamicEndpoint" : false,
+        "uri" : "direct://route-2",
+        "url" : ""
       },
       "_type" : "messagingEndpoint",
       "isNotActive" : false
     } ]
   }, {
-    "id" : null,
+    "id" : 2,
     "camelRouteId" : "route-2",
     "enabled" : true,
     "routeId" : 2,
@@ -58,7 +78,13 @@
       "nodeId" : "direct: from route-2",
       "description" : "from route-2",
       "properties" : {
-        "endpointName" : "route-2"
+        "_type" : "direct",
+        "active" : true,
+        "advancedParameters" : [ ],
+        "camelGroup" : "messaging connector",
+        "endpointName" : "route-2",
+        "name" : "direct",
+        "url" : ""
       },
       "_type" : "direct",
       "isNotActive" : false
@@ -67,11 +93,19 @@
       "nodeId" : "setHeaders: set id=${camelId}",
       "description" : "set id=${camelId}",
       "properties" : {
+        "_type" : "setHeaders",
+        "active" : true,
+        "addNamespaces" : false,
+        "camelGroup" : "core feature",
         "headerList" : [ {
           "headerName" : "id",
           "headerValue" : "${camelId}",
           "language" : "Simple"
-        } ]
+        } ],
+        "name" : "setHeaders",
+        "namespaces" : [ ],
+        "suppressExceptions" : false,
+        "url" : ""
       },
       "_type" : "setHeaders",
       "isNotActive" : false
@@ -80,13 +114,18 @@
       "nodeId" : "dslProcessor: to route-3",
       "description" : "to route-3",
       "properties" : {
-        "dsl" : ".to('direct://route-3')"
+        "_type" : "dslProcessor",
+        "active" : true,
+        "camelGroup" : "core feature",
+        "dsl" : ".to('direct://route-3')",
+        "name" : "dslProcessor",
+        "url" : ""
       },
       "_type" : "dslProcessor",
       "isNotActive" : false
     } ]
   }, {
-    "id" : null,
+    "id" : 3,
     "camelRouteId" : "route-3",
     "enabled" : true,
     "routeId" : 3,
@@ -95,7 +134,12 @@
       "nodeId" : "dslProcessor: from route-3",
       "description" : "from route-3",
       "properties" : {
-        "dsl" : "from('direct://route-3')"
+        "_type" : "dslProcessor",
+        "active" : true,
+        "camelGroup" : "core feature",
+        "dsl" : "from('direct://route-3')",
+        "name" : "dslProcessor",
+        "url" : ""
       },
       "_type" : "dslProcessor",
       "isNotActive" : false
@@ -104,20 +148,46 @@
       "nodeId" : "process: add date to headers",
       "description" : "add date to headers",
       "properties" : {
+        "_type" : "process",
+        "active" : true,
+        "camelGroup" : "data transformation",
         "code" : "exchange.getIn().setHeader(\"date\", new Date())",
-        "import" : ""
+        "import" : "",
+        "name" : "process",
+        "url" : ""
       },
       "_type" : "process",
       "isNotActive" : false
-    }, {
+    } ]
+  }, {
+    "id" : 4,
+    "camelRouteId" : "route-4",
+    "enabled" : true,
+    "routeId" : 4,
+    "route" : [ {
       "name" : "log",
       "nodeId" : "log: EIP log",
       "description" : "EIP log",
       "properties" : {
+        "_type" : "log",
+        "active" : true,
+        "advancedParameters" : [ ],
+        "camelGroup" : "core feature",
         "level" : "INFO",
         "logType" : "EIP",
         "loggerName" : "log",
-        "message" : "headers: ${headers}; body: ${body}"
+        "message" : "headers: ${headers}; body: ${body}",
+        "multiline" : false,
+        "name" : "log",
+        "showAll" : false,
+        "showBody" : true,
+        "showBodyType" : true,
+        "showCaughtException" : false,
+        "showExchangeId" : false,
+        "showHeaders" : false,
+        "showProperties" : false,
+        "showStackTrace" : false,
+        "url" : ""
       },
       "_type" : "log",
       "isNotActive" : false
@@ -127,6 +197,10 @@
   "id" : "df64f1c8-a37a-4e25-97cf-5cb1b42333ad",
   "name" : "simple-integration-3c25aaa2",
   "description" : "Simple integration with the timer-body-log example",
+  "absolutePath" : "/var/git-jetic/832157ef-48f8-44ee-875a-5ed38eda773d/8ece6b63-068a-4d7c-814d-f694eb25c0ff/folders/sample-git-data-3c25aaa2/integrations/simple-integration-3c25aaa2_df64f1c8-a37a-4e25-97cf-5cb1b42333ad.json",
+  "fileName" : "simple-integration-3c25aaa2_df64f1c8-a37a-4e25-97cf-5cb1b42333ad.json",
+  "folderName" : "sample-git-data-3c25aaa2",
+  "repoUuid" : "8ece6b63-068a-4d7c-814d-f694eb25c0ff",
   "createdAt" : "2024-02-07T15:15:52.190908876",
   "updatedAt" : "2024-02-07T15:15:52.190909917",
   "createdBy" : "832157ef-48f8-44ee-875a-5ed38eda773d",
