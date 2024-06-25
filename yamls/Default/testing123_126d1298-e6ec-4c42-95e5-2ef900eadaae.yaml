@@ -1,0 +1,61 @@
+---
+apiVersion: "camel.apache.org/v1"
+kind: "Integration"
+metadata:
+  labels:
+    jetic.io/deployment.uuid: "188a58e4-4429-4498-8c5c-ddf1e73cc9d6"
+    jetic.io/integration.name: "testing123"
+    jetic.io/integration.uuid: "126d1298-e6ec-4c42-95e5-2ef900eadaae"
+    jetic.io/log.level: "INFO"
+    jetic.io/data.analyzer: "true"
+    jetic.io/profile.name: "Default"
+    jetic.io/profile.uuid: "5524df63-d401-4f9e-8bb7-7772ecfa7a29"
+  name: "testing123"
+spec:
+  configuration:
+  - type: "property"
+    value: "quarkus.log.console.color=true"
+  - type: "property"
+    value: "quarkus.log.console.level=INFO"
+  dependencies:
+  - "mvn:io.jetic.analyzer:jetic-analyzer:3.1.4"
+  replicas: 1
+  resources: []
+  sources:
+  - compression: false
+    content: |+
+      //
+      // To run this integration use:
+      //
+      // kamel run testing123.groovy
+      //
+
+      // camel-k: language=groovy
+      // camel-k: name=testing123
+
+      import io.jetic.analyzer.JeticAnalyzer
+
+      // activate JETIC.IO Data Analyzer
+      JeticAnalyzer.activate(getContext())
+
+    name: "testing123.groovy"
+  traits:
+    jolokia:
+      configuration:
+        enabled: true
+    logging:
+      configuration:
+        enabled: true
+        level: "DEBUG"
+    owner:
+      configuration:
+        enabled: true
+        targetLabels:
+        - "jetic.io/data.analyzer"
+        - "jetic.io/deployment.uuid"
+        - "jetic.io/integration.name"
+        - "jetic.io/integration.uuid"
+        - "jetic.io/log.level"
+        - "jetic.io/open.api.host"
+        - "jetic.io/profile.name"
+        - "jetic.io/profile.uuid"
