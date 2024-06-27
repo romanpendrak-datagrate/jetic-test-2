@@ -81,6 +81,34 @@
       "_type" : "log",
       "isNotActive" : false
     } ]
+  }, {
+    "id" : 2,
+    "camelRouteId" : "route-2",
+    "enabled" : true,
+    "routeId" : 2,
+    "route" : [ {
+      "name" : "timer",
+      "nodeId" : "timer: 01",
+      "description" : "",
+      "properties" : {
+        "_type" : "timer",
+        "active" : true,
+        "advancedParameters" : [ ],
+        "camelGroup" : "scheduled trigger",
+        "daemon" : true,
+        "delay" : "1000",
+        "fixedRate" : false,
+        "name" : "timer",
+        "period" : "1000",
+        "repeatCount" : "0",
+        "setScheduleTime" : false,
+        "time" : "2021-12-31 00:00:00",
+        "timerName" : "timer",
+        "url" : ""
+      },
+      "_type" : "timer",
+      "isNotActive" : false
+    } ]
   } ],
   "traits" : [ ],
   "id" : "126d1298-e6ec-4c42-95e5-2ef900eadaae",
