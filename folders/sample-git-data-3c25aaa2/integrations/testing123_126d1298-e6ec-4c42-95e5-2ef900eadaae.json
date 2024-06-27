@@ -108,6 +108,52 @@
       },
       "_type" : "timer",
       "isNotActive" : false
+    }, {
+      "name" : "setBody",
+      "nodeId" : "setBody: 01",
+      "description" : "",
+      "properties" : {
+        "_type" : "setBody",
+        "active" : true,
+        "addNamespaces" : false,
+        "camelGroup" : "core feature",
+        "expression" : "exchangeId: ${exchangeId}",
+        "language" : "Simple",
+        "name" : "setBody",
+        "namespaces" : [ ],
+        "suppressExceptions" : false,
+        "url" : ""
+      },
+      "_type" : "setBody",
+      "isNotActive" : false
+    }, {
+      "name" : "log",
+      "nodeId" : "log: 01",
+      "description" : "",
+      "properties" : {
+        "_type" : "log",
+        "active" : true,
+        "advancedParameters" : [ ],
+        "camelGroup" : "core feature",
+        "level" : "INFO",
+        "logType" : "EIP",
+        "loggerName" : "log",
+        "message" : "headers: ${headers}; body: ${body}",
+        "multiline" : false,
+        "name" : "log",
+        "showAll" : false,
+        "showBody" : true,
+        "showBodyType" : true,
+        "showCaughtException" : false,
+        "showExchangeId" : false,
+        "showHeaders" : false,
+        "showProperties" : false,
+        "showStackTrace" : false,
+        "toDynamicEndpoint" : false,
+        "url" : ""
+      },
+      "_type" : "log",
+      "isNotActive" : false
     } ]
   } ],
   "traits" : [ ],
